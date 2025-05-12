@@ -11,7 +11,13 @@ if [ -z "$KEY_PATH" ]; then
   exit 5
 fi
 
-if [ "$#" -eq 1 ]; then
+
+if [ "$#" -eq 0 ]; then
+  # Case: try to connect without arguments
+  echo "You have to specify at least one argument (bastion ip)"
+  exit 5
+
+elif [ "$#" -eq 1 ]; then
   # Case: connect to bastion only
   BASTION_IP="$1"
   ssh -i "$KEY_PATH" -tt ubuntu@"$BASTION_IP"
