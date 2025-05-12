@@ -14,13 +14,13 @@ fi
 if [ "$#" -eq 1 ]; then
   # Case: connect to bastion only
   BASTION_IP="$1"
-  ssh -i "$KEY_PATH" -tt ec2-user@"$BASTION_IP"
+  ssh -i "$KEY_PATH" -tt ubuntu@"$BASTION_IP"
 
 elif [ "$#" -eq 2 ]; then
   # Case: SSH to private instance
   BASTION_IP="$1"
   PRIVATE_IP="$2"
-  ssh -i "$KEY_PATH" -tt ec2-user@"$BASTION_IP" "ssh -i ~/hojere.pem ubuntu@$PRIVATE_IP"
+  ssh -i "$KEY_PATH" -tt ubuntu@"$BASTION_IP" "ssh -i ~/hojere.pem ubuntu@$PRIVATE_IP"
 
 elif [ "$#" -ge 3 ]; then
   # Case: Run command on private instance
@@ -28,7 +28,7 @@ elif [ "$#" -ge 3 ]; then
   PRIVATE_IP="$2"
   shift 2
   CMD="$*"
-  ssh -i "$KEY_PATH" -tt ec2-user@"$BASTION_IP" "ssh -i ~/hojere.pem ubuntu@$PRIVATE_IP \"$CMD\""
+  ssh -i "$KEY_PATH" -tt ubuntu@"$BASTION_IP" "ssh -i ~/hojere.pem ubuntu@$PRIVATE_IP \"$CMD\""
 
 else
   echo "Usage:"
